@@ -26,5 +26,23 @@ At the top of the code, the required headers are included:
 
 <img src="https://github.com/user-attachments/assets/8a01ce25-8487-41ce-84e9-ad526ad0dd89" height="20%" width="70%" alt="Disk Sanitization Steps"/>
 
+----------------------------------------------------------------------
+
 <img src="https://github.com/user-attachments/assets/3283be0d-4228-4ca0-a638-f685a51320de" height="20%" width="70%" alt="Disk Sanitization Steps"/>
+
+To begin, stdio_init_all() is called. This initializes standard input and output, allowing communication between the Pico and the serial terminal over USB. Without this, printf() and scanf() would not work. Next, gpio_set_function() is used for GPIO16, GPIO17, and GPIO18 to assign each pin to the PWM function. This tells the Pico to treat these GPIOs as PWM outputs instead of general-purpose digital pins. While the Pico PWM layout diagram shows which slice and channel each GPIO is connected to, the Pico SDK provides two helper functions that handle this for us:
+
+pwm_gpio_to_slice_num(pin)   --> returns slice number (0 to 7)
+pwm_gpio_to_channel(pin)     --> returns channel (PWM_CHAN_A or PWM_CHAN_B)
+
+Each GPIO maps to a specific slice and channel, and these functions ensure the correct association automatically. After this, the wrap value is set using pwm_set_wrap(). The wrap defines the maximum count for the PWM cycle. We set it to 65535 to take full advantage of the 16-bit resolution: wrap = 65535 --> counts from 0 to 65535. To control the frequency of the PWM signal, the clock divider (clkdiv) is set using pwm_set_clkdiv(). The PWM frequency is determined by the following formula:
+- PWM frequency = (125000000 / clkdiv) / (wrap + 1)
+
+In this project, we wanted a 1 kHz PWM signal, so we solved for clkdiv: --> clkdiv = (125000000 / (1000 * (65535 + 1))) = ~1.9
+
+We used 1.9f to represent the value as a float (32-bit) instead of a double (64-bit), which is more efficient on the Pico.
+
+
+
+
 
