@@ -42,7 +42,12 @@ In this project, we wanted a 1 kHz PWM signal, so we solved for clkdiv: --> clkd
 
 We used 1.9f to represent the value as a float (32-bit) instead of a double (64-bit), which is more efficient on the Pico.
 
+<img src="https://github.com/user-attachments/assets/42edf015-35f5-44ad-8b60-5f18f6fc7fd0" height="20%" width="50%" alt="Disk Sanitization Steps"/>
 
+<img src="https://github.com/user-attachments/assets/410531ce-8fe5-4a73-abba-148c9c4d3ade" height="20%" width="50%" alt="Disk Sanitization Steps"/>
 
+The main logic of the program is handled using a do-while loop that continuously prompts the user for input. First, the user is asked to enter a color (red, green, or blue). Based on the input, the corresponding if or else if statement runs and asks for a brightness percentage from 0 to 100. Using percentage input is more user-friendly than requiring the user to manually enter a number between 0 and 65535. To convert the percentage into a usable PWM value, we multiply the percentage by 65535 and divide by 100:
+- duty_cycle_value = 65535 * (brightness_percentage / 100.0f)
 
+This value is then passed into the pwm_set_chan_level() function, which takes three arguments: the slice number, the channel, and a value between 0 and the wrap value (65535). This function is what actually updates the brightness of the corresponding color. After each color change, the brightness levels of all three colors are printed to the terminal so the user can keep track of the current LED state. If the user enters "exit", the program stops asking for input and all three channel levels are set to 0, turning off the LED.
 
