@@ -51,3 +51,43 @@ The main logic of the program is handled using a do-while loop that continuously
 
 This value is then passed into the pwm_set_chan_level() function, which takes three arguments: the slice number, the channel, and a value between 0 and the wrap value (65535). This function is what actually updates the brightness of the corresponding color. After each color change, the brightness levels of all three colors are printed to the terminal so the user can keep track of the current LED state. If the user enters "exit", the program stops asking for input and all three channel levels are set to 0, turning off the LED.
 
+--------------------------------------------------------------------
+
+Once the code is flashed onto the Pico and CoolTerm is connected to the correct COM port, the Pico begins running its program. It waits for user input through the serial terminal.
+
+The user types a color (for example, red) into CoolTerm and presses Enter. That message is sent over USB to the Pico, which reads the input using scanf() and checks which color was typed. It then prompts the user to enter a brightness percentage for that color.
+
+Once the percentage is entered, the Pico calculates the corresponding PWM value and updates the LED brightness using pwm_set_chan_level(). After that, the Pico prints out the current brightness levels of red, green, and blue so the user can see what the LED is currently displaying.
+
+The user can repeat this process to adjust other colors, or type exit to stop and turn off the LED. This creates a live interaction between the Pico and the user through the serial terminal, making it easy to test and visualize how PWM affects LED brightness in real time.
+
+<img src="https://github.com/user-attachments/assets/5cc4e690-5514-40dd-9dff-c2aa463caf62" height="20%" width="50%" alt="Disk Sanitization Steps"/>
+
+<img src="https://github.com/user-attachments/assets/8f669854-d541-4406-a930-8d5ddd30434e" height="20%" width="50%" alt="Disk Sanitization Steps"/>
+
+*turning on red to 63% duty cycle*
+
+--
+
+<img src="https://github.com/user-attachments/assets/306872c3-f6c5-40e5-819e-3cacb72c4bdb" height="20%" width="50%" alt="Disk Sanitization Steps"/>
+
+<img src="https://github.com/user-attachments/assets/7bec06d4-0757-4020-b463-315f3f5d64c2" height="20%" width="50%" alt="Disk Sanitization Steps"/>
+
+*while red is still at 63% duty cycle, we also turn on blue to 100% duty cycle*
+
+--
+
+<img src="https://github.com/user-attachments/assets/940eb811-f4ed-4870-851b-aa52a6cdf3e8" height="20%" width="50%" alt="Disk Sanitization Steps"/>
+
+<img src="https://github.com/user-attachments/assets/9775a3a3-a652-4a81-8067-ce3f1924f8c8" height="20%" width="50%" alt="Disk Sanitization Steps"/>
+
+*Here we exitted out of the program which resulted in out LED turning off*
+
+
+
+
+
+
+
+
+
