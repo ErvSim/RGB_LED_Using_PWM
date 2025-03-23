@@ -12,7 +12,4 @@ Each GPIO pin was connected through a 330 ohm resistor to its respective LED pin
 
 <img src="https://github.com/user-attachments/assets/1c2be0dc-76cb-4c86-9447-313cb74e6538" height="20%" width="100%" alt="Disk Sanitization Steps"/>
 
-![image](https://github.com/user-attachments/assets/948efbb2-78ef-4658-b533-5855249a096c)
 
-
-![Pico PWM Layout](https://github.com/user-attachments/assets/1c2be0dc-76cb-4c86-9447-313cb74e6538)
