@@ -12,5 +12,19 @@ Each GPIO pin was connected through a 330 ohm resistor to its respective LED pin
 
 <img src="https://github.com/user-attachments/assets/948efbb2-78ef-4658-b533-5855249a096c" height="20%" width="20%" alt="Disk Sanitization Steps"/>
 
-![image](https://github.com/user-attachments/assets/8a01ce25-8487-41ce-84e9-ad526ad0dd89)
+Since this project uses PWM to control LED brightness and takes user input through a serial terminal, a few initial setup steps are required in the build system. First, the hardware_pwm library is added to the target_link_libraries section of the CMakeLists.txt file. This gives access to the necessary functions for PWM control.
+
+Additionally, USB output is enabled to allow communication with the serial terminal, which is used to receive user commands during runtime.
+
+At the top of the code, the required headers are included:
+
+- pico/stdlib.h for core Pico functions
+
+- hardware/pwm.h for PWM functionality
+
+- string.h for handling user input as strings
+
+<img src="https://github.com/user-attachments/assets/8a01ce25-8487-41ce-84e9-ad526ad0dd89" height="20%" width="70%" alt="Disk Sanitization Steps"/>
+
+<img src="https://github.com/user-attachments/assets/3283be0d-4228-4ca0-a638-f685a51320de" height="20%" width="70%" alt="Disk Sanitization Steps"/>
 
